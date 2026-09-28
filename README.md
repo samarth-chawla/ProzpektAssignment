@@ -2,18 +2,17 @@
 
 Mobile-first campaign landing page for Morrow Café, Sector 104 Noida. Visitor scans a QR in-store → understands the offer in seconds → claims with name + phone → gets a `MORROW-XXXX` code to show at the counter.
 
-Live: _(deploy to Vercel, paste URL here)_
-Repo: _(GitHub URL)_
+Live: https://prozpekt-assignment-phi.vercel.app/
+Repo: https://github.com/samarth-chawla/ProzpektAssignment
 
 ## Stack & why
 
-**Next.js 14+ App Router (JS) + Tailwind CSS v4 + `next/font` + `next/image`**
+**Next.js App Router + Tailwind CSS, on Vercel.**
 
-- `app/api/claim/route.js` gives a real `POST /api/claim` with zero extra infra - honors the brief contract directly, deploys free on Vercel.
-- `next/image` auto-serves AVIF/WebP + lazy-loads below-fold image. No manual compression pipeline needed in 4 hrs.
-- `next/font` (Marcellus + Archivo) with `display: swap` = zero layout shift from fonts.
-- Tailwind v4 `@theme` tokens for the Warm Artisan palette; no UI kit, no animation lib - keeps JS minimal per brief.
-- Considered Astro (better static Lighthouse) and Vite+React (simpler), but Next won because the brief explicitly tests the UI → request → loading → success/error loop, and a real API route demonstrates that best.
+- The API route lives in the same app, so no CORS issues and no separate backend to deploy.
+- Folders become routes automatically - pages and the `/api/claim` endpoint with zero config.
+- Images and fonts come optimized out of the box (`next/image`, `next/font`).
+- Tailwind keeps styling short and consistent. No UI kit, no animation library, minimal JavaScript.
 
 ## Run locally
 
