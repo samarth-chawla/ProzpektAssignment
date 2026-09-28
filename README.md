@@ -40,13 +40,15 @@ No env vars. Images load from Unsplash CDN (see `next.config.mjs` remotePatterns
 3. **Phone validation client + server mirrored** so UI errors are instant but never trusted.
 4. **Images:** Unsplash café interior (hero, `priority`) + coffee detail (lazy). `sizes` set, AVIF/WebP via Next. Skeleton div behind each image so no CLS flash.
 
-## Performance (Lighthouse-style, manual audit)
+## Performance
+
+Lighthouse (desktop, local dev server): **96 Performance / 100 Accessibility / 100 Best Practices / 100 SEO**.
 
 - Found: hero image was largest paint → fixed with `priority` + `sizes` + remote `?w=1200&q=80&auto=format` params.
 - Found: font shift risk → fixed with `next/font` + system fallback stacks.
 - Found: below-fold image loading eagerly → fixed with `loading="lazy"`.
-- Left alone (time budget): no `blurDataURL` placeholders (remote images; skeleton CSS used instead), no route-level code-splitting beyond App Router defaults, no self-hosted fonts.
-- JS: one client component (`ClaimForm`) only; rest is server-rendered static. No animation/form libraries.
+- Deliberately left: the JS minify/unused-JS and source-map warnings are dev-server noise (unminified chunks) and disappear in production builds; the skeleton shimmer animates background-position (flagged non-composited, tiny paint cost, loading-only); no `blurDataURL` placeholders (remote images; skeleton CSS used instead), no self-hosted fonts.
+- JS: two small client components (`ClaimForm`, `Reveal`); everything else is static server rendering. No animation/form libraries.
 
 ## What I cut for time
 
@@ -73,4 +75,4 @@ No env vars. Images load from Unsplash CDN (see `next.config.mjs` remotePatterns
 
 ## Time spent
 
-~3.5 hours: scaffold + theme (45m), hero/sections (60m), form + API + success (60m), responsive/a11y/perf pass (30m), README/AI.md + build (15m).
+~2-3 hours: theme + hero/sections (~1h), form + API + success (~1h), responsive/a11y/perf polish + docs (rest).

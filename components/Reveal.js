@@ -7,14 +7,16 @@ import { useEffect, useRef, useState } from "react";
 // opacity + transform so it stays on the compositor thread.
 export default function Reveal({ children, className = "", delay = 0, as = "div" }) {
   const ref = useRef(null);
+  // Always start hidden on both server and client (no hydration mismatch),
+  // then reveal on entry. The no-IntersectionObserver fallback runs async.
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
+      const id = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(id);
     }
     const io = new IntersectionObserver(
       (entries) => {

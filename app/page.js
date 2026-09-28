@@ -109,15 +109,18 @@ export default function Home() {
         {/* HOW IT WORKS */}
         <section id="how" className="border-y border-espresso/10 bg-cream-dark/60 scroll-mt-20">
           <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-            <Reveal as="h2" className="font-display text-2xl font-bold sm:text-3xl">How it works</Reveal>
+            <Reveal>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-terracotta-dark">How it works</p>
+              <h2 className="mt-2 font-display text-2xl sm:text-3xl">Claim it in three steps</h2>
+            </Reveal>
             <ol className="mt-6 grid gap-4 sm:grid-cols-3">
               {[
                 ["1", "Fill the form", "Name + 10-digit number. Optional: when you're visiting."],
                 ["2", "Get your code", "Instant MORROW-XXXX code. Screenshot it - works offline."],
                 ["3", "Show at counter", "Flash it before billing on ₹499+. That's it."],
               ].map(([n, t, d], i) => (
-                <Reveal as="li" key={n} delay={i * 90} className="rounded-2xl bg-white p-5 shadow-sm">
-                  <p className="flex h-9 w-9 items-center justify-center rounded-full bg-espresso font-bold text-cream" aria-hidden="true">
+                <Reveal as="li" key={n} delay={i * 90} className="border-t-2 border-espresso/15 pt-5">
+                  <p className="font-display text-5xl text-terracotta" aria-hidden="true">
                     {n}
                   </p>
                   <h3 className="mt-3 font-bold">{t}</h3>
@@ -140,7 +143,8 @@ export default function Home() {
                 />
               </Reveal>
               <Reveal delay={120}>
-                <h3 className="font-display text-xl font-bold">Why regulars love Morrow</h3>
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-terracotta-dark">The café</p>
+                <h3 className="mt-2 font-display text-xl">Why regulars love Morrow</h3>
                 <ul className="mt-3 list-disc space-y-2.5 pl-5 text-espresso-soft marker:text-terracotta">
                   <li>Slow-roasted beans, brewed fresh every morning</li>
                   <li>Cozy work-friendly corner + free Wi-Fi</li>
@@ -158,7 +162,8 @@ export default function Home() {
         <section id="claim" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12 sm:px-6">
           <div className="grid gap-8 lg:grid-cols-[1fr_480px] lg:items-start">
             <Reveal>
-              <h2 className="font-display text-3xl font-bold sm:text-4xl">Your ₹150 is one step away</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-terracotta-dark">Claim your code</p>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Your ₹150 is one step away</h2>
               <p className="mt-3 max-w-md text-lg text-espresso-soft">
                 After you submit you&apos;ll see your code instantly. Screenshot it - you&apos;ll
                 show it on your next visit.
