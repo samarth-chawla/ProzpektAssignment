@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #faf6f0;
+  --color-cream-dark: #f1e8db;
+  --color-espresso: #2b1d16;
+  --color-espresso-soft: #4a3428;
+  --color-terracotta: #b4502b;
+  --color-terracotta-dark: #93391e;
+  --color-mustard: #e9a13b;
+  --color-sage: #7d8c6f;
+  --color-sage-dark: #5f6e53;
+
+  --font-display: "Marcellus", Georgia, serif;
+  --font-sans: "Archivo", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+/* Marcellus ships in Regular 400 only - never faux-bold it.
+   Display headings always render at their true weight. */
+.font-display {
+  font-weight: 400;
+}
+
+/* Visible focus for keyboard users. Lives in the base layer so per-element
+   utilities (e.g. focus-visible:outline-none on inputs) can override it -
+   unlayered CSS would beat Tailwind v4 utilities regardless of specificity. */
+@layer base {
+  :focus-visible {
+    outline: 3px solid #e9a13b;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Entrance + success animations (restrained) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.delay-1 {
+  animation-delay: 0.08s;
+}
+.delay-2 {
+  animation-delay: 0.16s;
+}
+.delay-3 {
+  animation-delay: 0.24s;
+}
+
+/* CTA press microinteraction */
+.btn-press {
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Skeleton shimmer for lazy images */
+.img-skeleton {
+  background: linear-gradient(100deg, #f1e8db 40%, #faf6f0 50%, #f1e8db 60%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Keep Chrome autofill on-palette instead of pale blue */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #2b1d16;
+  -webkit-box-shadow: 0 0 0 1000px #faf6f0 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Scroll reveal (IntersectionObserver adds .is-visible on entry).
+   Opacity + transform only, so animation stays on the compositor. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero headline line-mask reveal: each line slides up from behind a mask */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.line-inner {
+  display: block;
+  animation: line-up 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.line-inner.delay {
+  animation-delay: 0.12s;
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
